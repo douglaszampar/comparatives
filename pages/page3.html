@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#0E1D2E;
+color:#F4F4F4;
+font-size:26px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding-top:60px;
+}
+
+.instruction{
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.options{
+margin-bottom:40px;
+}
+
+.drag{
+display:inline-block;
+padding:12px 30px;
+margin-right:20px;
+border-radius:8px;
+cursor:grab;
+font-weight:bold;
+}
+
+.student{
+background:#00c853;
+}
+
+.teacher{
+background:#ff6400;
+}
+
+.dropzone{
+display:inline-block;
+width:180px;
+height:50px;
+border:3px dashed #aaa;
+vertical-align:middle;
+margin-right:20px;
+text-align:center;
+line-height:50px;
+border-radius:6px;
+}
+
+.sentence{
+margin:30px 0;
+}
+
+button{
+margin-top:40px;
+padding:14px 30px;
+font-size:22px;
+border:none;
+border-radius:8px;
+background:#ff6400;
+color:white;
+cursor:pointer;
+margin-right:20px;
+}
+
+.hidden{
+display:none;
+}
+
+.followup{
+margin-left:30px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="activity">
+
+<div class="instruction">
+Decide who answers each question. Click and drag.
+</div>
+
+<div class="options">
+<div class="drag student" draggable="true" id="student">Student</div>
+<div class="drag teacher" draggable="true" id="teacher">Teacher</div>
+</div>
+
+<div id="questions"></div>
+
+<button onclick="startDiscussion()">Discuss</button>
+<button onclick="location.reload()">Reset</button>
+
+</div>
+
+
+<div class="container hidden" id="discussion">
+
+<h2 id="roleTitle"></h2>
+
+<div id="discussionText"></div>
+
+<button onclick="nextRole()">Next</button>
+
+</div>
+
+
+
+<script>
+
+/* ===========================
+EDITAR SOMENTE AQUI
+=========================== */
+
+const activity = {
+
+questions:[
+
+{
+sentence:"Do you think life today is better than life 50 years ago?",
+followups:[
+"What things are better today?",
+"What things were better in the past?"
+]
+},
+
+{
+sentence:"Do smartphones make our memory weaker?",
+followups:[
+"What things do you forget because of your phone?",
+"Is technology good or bad for the brain?"
+]
+}
+
+]
+
+}
+
+/* ===========================
+CRIAR PERGUNTAS
+=========================== */
+
+const container = document.getElementById("questions")
+
+activity.questions.forEach((q,i)=>{
+
+const div = document.createElement("div")
+div.className="sentence"
+
+div.innerHTML = `
+<div class="dropzone" data-question="${i}"></div>
+${q.sentence}
+`
+
+container.appendChild(div)
+
+})
+
+/* ===========================
+DRAG AND DROP
+=========================== */
+
+const drags = document.querySelectorAll(".drag")
+const drops = document.querySelectorAll(".dropzone")
+
+drags.forEach(d => {
+
+d.addEventListener("dragstart", e=>{
+e.dataTransfer.setData("text", e.target.id)
+})
+
+})
+
+drops.forEach(zone =>{
+
+zone.addEventListener("dragover", e=>{
+e.preventDefault()
+})
+
+zone.addEventListener("drop", e=>{
+
+e.preventDefault()
+
+const id = e.dataTransfer.getData("text")
+
+zone.textContent = id.charAt(0).toUpperCase()+id.slice(1)
+zone.dataset.role = id
+
+})
+
+})
+
+/* ===========================
+DISCUSS
+=========================== */
+
+let roles = {}
+let phase = "student"
+
+function startDiscussion(){
+
+roles = {}
+
+drops.forEach(zone=>{
+
+const q = zone.dataset.question
+const role = zone.dataset.role
+
+if(!role){
+alert("Assign Student or Teacher to each question.")
+return
+}
+
+roles[role] = q
+
+})
+
+document.getElementById("activity").classList.add("hidden")
+document.getElementById("discussion").classList.remove("hidden")
+
+showRole()
+
+}
+
+function showRole(){
+
+const qIndex = roles[phase]
+
+const roleTitle = document.getElementById("roleTitle")
+const text = document.getElementById("discussionText")
+
+const q = activity.questions[qIndex]
+
+roleTitle.innerText =
+phase.charAt(0).toUpperCase()+phase.slice(1)+" talks"
+
+let html = `<p>${q.sentence}</p>`
+
+q.followups.forEach(f=>{
+html += `<div class="followup">• ${f}</div>`
+})
+
+text.innerHTML = html
+
+}
+
+function nextRole(){
+
+if(phase === "student"){
+phase = "teacher"
+showRole()
+}else{
+location.reload()
+}
+
+}
+
+</script>
+
+</body>
+</html>
+

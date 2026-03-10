@@ -90,13 +90,20 @@ padding:0 40px;
 }
 
 .nav button{
-padding:12px 26px;
-font-size:20px;
+padding:16px 36px;
+font-size:22px;
+font-weight:bold;
 border:none;
-border-radius:8px;
+border-radius:10px;
 background:#FF6400;
 color:white;
 cursor:pointer;
+transition:0.2s;
+}
+
+.nav button:hover{
+transform:scale(1.08);
+box-shadow:0 0 12px rgba(255,100,0,0.5);
 }
 
 .nav{

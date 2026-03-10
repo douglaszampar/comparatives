@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#0E1D2E;
+color:#F4F4F4;
+}
+
+.exercise{
+max-width:900px;
+margin:auto;
+font-size:28px;
+line-height:2;
+padding-top:60px;
+}
+
+.instruction{
+font-weight:bold;
+margin-bottom:40px;
+}
+
+input{
+font-size:28px;
+font-family:inherit;
+border:none;
+border-bottom:5px solid red;
+background:transparent;
+color:#F4F4F4;
+width:180px;
+text-align:center;
+outline:none;
+}
+
+.correct{
+border-bottom:5px solid #00e676;
+}
+
+.sentence{
+margin:25px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="exercise">
+
+<div class="instruction">
+Complete the questions with words from the last page.
+</div>
+
+<div class="sentence">
+Do you think life today is 
+<input data-answer="better">
+than life 50 years ago?
+</div>
+
+<div class="sentence">
+Do smartphones make our memory
+<input data-answer="weaker">
+?
+</div>
+
+</div>
+
+<script>
+
+const inputs = document.querySelectorAll("input")
+
+inputs.forEach(input => {
+
+input.addEventListener("input", function(){
+
+const value = this.value.toLowerCase().trim()
+const answer = this.dataset.answer.toLowerCase()
+
+if(value === answer){
+this.classList.add("correct")
+}else{
+this.classList.remove("correct")
+}
+
+})
+
+})
+
+</script>
+
+</body>
+</html>
+

@@ -98,3 +98,28 @@ background:#FF6400;
 color:white;
 cursor:pointer;
 }
+
+.nav{
+position:fixed;
+bottom:30px;
+left:0;
+right:0;
+display:flex;
+justify-content:space-between;
+padding:0 40px;
+}
+
+.nav button{
+padding:14px 28px;
+font-size:22px;
+border:none;
+border-radius:8px;
+background:#FF6400;
+color:white;
+cursor:pointer;
+}
+
+.nav button:hover{
+transform:scale(1.05);
+box-shadow:0 0 12px rgba(255,100,0,0.5);
+}

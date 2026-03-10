@@ -1,79 +1,80 @@
+/* RESET */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
+
+/* FUNDO DA PÁGINA */
+
+.home{
 background:#0E1D2E;
 color:#F4F4F4;
+font-family:Arial, Helvetica, sans-serif;
 height:100vh;
+
 display:flex;
 justify-content:center;
 align-items:center;
+}
+
+
+/* CONTAINER CENTRAL */
+
+.container{
 text-align:center;
 }
 
-.container{
-width:90%;
-max-width:900px;
-}
 
-h1{
-font-size:3rem;
-margin-bottom:60px;
-}
-
-p{
-font-size:1.6rem;
-line-height:1.5;
-}
+/* LOGO */
 
 .logo{
 width:650px;
 max-width:90%;
 display:block;
-margin:60px auto 20px auto;
+margin:0 auto 30px auto;
 }
 
-button{
-font-size:1.6rem;
-padding:18px 40px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-transition:0.2s;
+
+/* TÍTULO */
+
+h1{
+font-size:42px;
+margin-bottom:30px;
+font-weight:bold;
 }
+
+
+/* BOTÃO START */
 
 .start-btn{
+
 background:#FF6400;
 color:white;
+
+border:none;
+border-radius:10px;
+
+padding:18px 50px;
+
+font-size:26px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:all 0.25s;
+
 }
+
+
+/* ANIMAÇÃO HOVER */
 
 .start-btn:hover{
-transform:scale(1.05);
-}
 
-.nav{
-position:fixed;
-bottom:30px;
-left:0;
-right:0;
-display:flex;
-justify-content:space-between;
-padding:0 40px;
-}
+transform:scale(1.1);
 
-.nav button{
-background:#FF6400;
-color:white;
-}
+box-shadow:0 0 20px rgba(255,100,0,0.6);
 
-.finish{
-background:#4CAF50;
-}
-
-.back{
-background:#555;
 }

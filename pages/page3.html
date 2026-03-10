@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,16 +16,22 @@ color:#F4F4F4;
 font-size:26px;
 }
 
+/* CONTAINER */
+
 .container{
 max-width:900px;
 margin:auto;
-padding-top:60px;
+padding-top:80px;
 }
+
+/* INSTRUCTION */
 
 .instruction{
 font-weight:bold;
 margin-bottom:40px;
 }
+
+/* OPTIONS */
 
 .options{
 margin-bottom:40px;
@@ -47,6 +54,8 @@ background:#00c853;
 background:#ff6400;
 }
 
+/* DROP ZONE */
+
 .dropzone{
 display:inline-block;
 width:180px;
@@ -59,9 +68,13 @@ line-height:50px;
 border-radius:6px;
 }
 
+/* SENTENCES */
+
 .sentence{
 margin:30px 0;
 }
+
+/* BUTTONS */
 
 button{
 margin-top:40px;
@@ -75,6 +88,8 @@ cursor:pointer;
 margin-right:20px;
 }
 
+/* DISCUSSION */
+
 .hidden{
 display:none;
 }
@@ -85,6 +100,7 @@ margin-top:10px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -118,8 +134,6 @@ Decide who answers each question. Click and drag.
 
 </div>
 
-
-
 <script>
 
 /* ===========================
@@ -150,8 +164,9 @@ followups:[
 
 }
 
+
 /* ===========================
-CRIAR PERGUNTAS
+CREATE QUESTIONS
 =========================== */
 
 const container = document.getElementById("questions")
@@ -170,6 +185,7 @@ container.appendChild(div)
 
 })
 
+
 /* ===========================
 DRAG AND DROP
 =========================== */
@@ -180,7 +196,9 @@ const drops = document.querySelectorAll(".dropzone")
 drags.forEach(d => {
 
 d.addEventListener("dragstart", e=>{
+
 e.dataTransfer.setData("text", e.target.id)
+
 })
 
 })
@@ -204,8 +222,9 @@ zone.dataset.role = id
 
 })
 
+
 /* ===========================
-DISCUSS
+DISCUSSION SYSTEM
 =========================== */
 
 let roles = {}
@@ -215,19 +234,21 @@ function startDiscussion(){
 
 roles = {}
 
-drops.forEach(zone=>{
+for(let zone of drops){
 
 const q = zone.dataset.question
 const role = zone.dataset.role
 
 if(!role){
+
 alert("Assign Student or Teacher to each question.")
 return
+
 }
 
 roles[role] = q
 
-})
+}
 
 document.getElementById("activity").classList.add("hidden")
 document.getElementById("discussion").classList.remove("hidden")
@@ -251,7 +272,9 @@ phase.charAt(0).toUpperCase()+phase.slice(1)+" talks"
 let html = `<p>${q.sentence}</p>`
 
 q.followups.forEach(f=>{
+
 html += `<div class="followup">• ${f}</div>`
+
 })
 
 text.innerHTML = html
@@ -261,13 +284,19 @@ text.innerHTML = html
 function nextRole(){
 
 if(phase === "student"){
+
 phase = "teacher"
 showRole()
+
 }else{
+
 location.reload()
+
 }
 
 }
+
+</script>
 
 <script src="../script.js"></script>
 

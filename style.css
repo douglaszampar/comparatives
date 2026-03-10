@@ -123,3 +123,16 @@ cursor:pointer;
 transform:scale(1.05);
 box-shadow:0 0 12px rgba(255,100,0,0.5);
 }
+
+.page-counter{
+
+position:fixed;
+top:30px;
+right:40px;
+
+font-size:20px;
+font-weight:bold;
+
+color:#FF6400;
+
+}

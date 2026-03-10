@@ -20,6 +20,7 @@ back.style.visibility = "hidden"
 
 const next = document.createElement("button")
 next.innerText = "Next"
+next.className = "next"
 
 next.onclick = () =>{
 window.location.href = `page${pageNumber+1}.html`

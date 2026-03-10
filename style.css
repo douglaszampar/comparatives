@@ -6,27 +6,28 @@ padding:0;
 box-sizing:border-box;
 }
 
+/* BODY */
 
-/* FUNDO DA PÁGINA */
-
-.home{
+body{
 background:#0E1D2E;
 color:#F4F4F4;
 font-family:Arial, Helvetica, sans-serif;
-height:100vh;
+}
 
+/* HOME PAGE */
+
+.home{
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 }
 
-
-/* CONTAINER CENTRAL */
+/* CONTAINER */
 
 .container{
 text-align:center;
 }
-
 
 /* LOGO */
 
@@ -37,8 +38,7 @@ width:620px;
 max-width:80%;
 }
 
-
-/* TÍTULO */
+/* TITLE */
 
 h1{
 font-size:56px;
@@ -46,38 +46,26 @@ font-weight:600;
 margin-bottom:40px;
 }
 
-
-/* BOTÃO START */
+/* START BUTTON */
 
 .start-btn{
-
 background:#FF6400;
 color:white;
-
 border:none;
 border-radius:10px;
-
 padding:18px 50px;
-
 font-size:26px;
 font-weight:bold;
-
 cursor:pointer;
-
-transition:all 0.25s;
-
+transition:0.25s;
 }
-
-
-/* ANIMAÇÃO HOVER */
 
 .start-btn:hover{
-
 transform:scale(1.1);
-
 box-shadow:0 0 20px rgba(255,100,0,0.6);
-
 }
+
+/* NAVIGATION BAR */
 
 .nav{
 position:fixed;
@@ -86,12 +74,14 @@ left:0;
 right:0;
 display:flex;
 justify-content:space-between;
-padding:0 40px;
+padding:0 60px;
 }
 
-.nav button{
-padding:16px 36px;
-font-size:22px;
+/* NAV BUTTONS */
+
+.nav-btn{
+padding:18px 50px;
+font-size:24px;
 font-weight:bold;
 border:none;
 border-radius:10px;
@@ -101,35 +91,18 @@ cursor:pointer;
 transition:0.2s;
 }
 
-.nav button:hover{
+.nav-btn:hover{
 transform:scale(1.08);
 box-shadow:0 0 12px rgba(255,100,0,0.5);
 }
 
-.nav{
-position:fixed;
-bottom:30px;
-left:0;
-right:0;
-display:flex;
-justify-content:space-between;
-padding:0 40px;
-}
-
-.nav button:hover{
-transform:scale(1.05);
-box-shadow:0 0 12px rgba(255,100,0,0.5);
-}
+/* PAGE COUNTER */
 
 .page-counter{
-
 position:fixed;
 top:30px;
 right:40px;
-
-font-size:20px;
+font-size:22px;
 font-weight:bold;
-
 color:#FF6400;
-
 }

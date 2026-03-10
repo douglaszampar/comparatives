@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+body{
+background:#0E1D2E;
+color:#F4F4F4;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.exercise{
+max-width:900px;
+margin:auto;
+font-size:28px;
+line-height:2;
+}
+
+#instruction{
+font-weight:bold;
+font-size:28px;
+margin-bottom:25px;
+}
+
+.words{
+margin:25px 0;
+color:#FF6400;
+font-size:28px;
+}
+
+.sentence{
+margin:25px 0;
+}
+
+input{
+font-size:28px;
+font-family:inherit;
+border:none;
+border-bottom:6px solid #ff3b3b;
+outline:none;
+width:200px;
+text-align:center;
+background:transparent;
+color:#F4F4F4;
+padding:2px 4px;
+transition:all 0.2s;
+}
+
+.correct{
+border-bottom:6px solid #00e676;
+animation:correctFlash 0.35s;
+}
+
+@keyframes correctFlash{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.08);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="exercise">
+
+<div id="instruction"></div>
+
+<div class="words" id="wordbank"></div>
+
+<div id="sentences"></div>
+
+</div>
+
+<script>
+
+const activity = {
+
+instruction:"1. Complete the sentences with the comparative form of the adjectives below. There is one extra adjective.",
+
+words:[
+"beautiful",
+"slow",
+"hard",
+"bad"
+],
+
+sentences:[
+"This movie is ___ than the first one.",
+"This beach is ___ than the other one.",
+"This bus is ___ than the train."
+],
+
+answers:[
+"worse",
+"more beautiful",
+"slower"
+]
+
+}
+
+document.getElementById("instruction").innerText = activity.instruction
+
+document.getElementById("wordbank").innerText = activity.words.join(" • ")
+
+const container = document.getElementById("sentences")
+
+activity.sentences.forEach((sentence,i)=>{
+
+const div = document.createElement("div")
+div.className="sentence"
+
+const parts = sentence.split("___")
+
+const input = document.createElement("input")
+
+input.dataset.answer = activity.answers[i].toLowerCase()
+
+input.addEventListener("input",function(){
+
+const value = this.value.toLowerCase().trim()
+
+if(value === this.dataset.answer){
+
+this.classList.add("correct")
+
+}else{
+
+this.classList.remove("correct")
+
+}
+
+})
+
+div.append(parts[0])
+div.appendChild(input)
+div.append(parts[1])
+
+container.appendChild(div)
+
+})
+
+</script>
+
+<script src="../script.js"></script>
+  
+</body>
+</html>

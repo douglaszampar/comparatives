@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+.exercise{
+max-width:900px;
+margin:auto;
+font-size:28px;
+line-height:1.6;
+}
+
+.words{
+margin:30px 0;
+font-weight:bold;
+color:#FF6400;
+}
+
+input{
+font-size:28px;
+border:none;
+border-bottom:4px solid red;
+outline:none;
+width:180px;
+text-align:center;
+background:transparent;
+color:#F4F4F4;
+}
+
+.correct{
+border-bottom:4px solid #00c853;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="exercise">
+
+<h2 id="instruction"></h2>
+
+<div class="words" id="wordbank"></div>
+
+<div id="sentences"></div>
+
+</div>
+
+<script>
+
+const activity = {
+
+instruction:"1. Complete the sentences with the comparative form of the adjectives below. There is one extra adjective.",
+
+words:[
+"weak",
+"big",
+"young",
+"good"
+],
+
+sentences:[
+"This phone is _____ than yours for taking photos.",
+"My cousin is _____ than me.",
+"The team looks _____ this year."
+],
+
+answers:[
+"better",
+"younger",
+"weaker"
+]
+
+}
+
+document.getElementById("instruction").innerText = activity.instruction
+
+document.getElementById("wordbank").innerText = activity.words.join("   •   ")
+
+const container = document.getElementById("sentences")
+
+activity.sentences.forEach((sentence,i)=>{
+
+const div = document.createElement("div")
+
+const parts = sentence.split("______")
+
+const input = document.createElement("input")
+
+input.dataset.answer = activity.answers[i].toLowerCase()
+
+input.addEventListener("input",function(){
+
+const value = this.value.toLowerCase().trim()
+
+if(value === this.dataset.answer){
+this.classList.add("correct")
+}else{
+this.classList.remove("correct")
+}
+
+})
+
+div.append(parts[0])
+div.append(input)
+div.append(parts[1])
+
+container.appendChild(div)
+
+})
+
+</script>
+
+</body>
+</html>
+

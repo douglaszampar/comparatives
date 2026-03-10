@@ -1,139 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="../style.css">
-
-<style>
-
-body{
-font-family:Arial, Helvetica, sans-serif;
-background:#0E1D2E;
-color:#F4F4F4;
-font-size:26px;
-}
-
-/* CONTAINER */
-
-.container{
-max-width:900px;
-margin:auto;
-padding-top:80px;
-}
-
-/* INSTRUCTION */
-
-.instruction{
-font-weight:bold;
-margin-bottom:40px;
-}
-
-/* OPTIONS */
-
-.options{
-margin-bottom:40px;
-}
-
-.drag{
-display:inline-block;
-padding:12px 30px;
-margin-right:20px;
-border-radius:8px;
-cursor:grab;
-font-weight:bold;
-}
-
-.student{
-background:#00c853;
-}
-
-.teacher{
-background:#ff6400;
-}
-
-/* DROP ZONE */
-
-.dropzone{
-display:inline-block;
-width:180px;
-height:50px;
-border:3px dashed #aaa;
-vertical-align:middle;
-margin-right:20px;
-text-align:center;
-line-height:50px;
-border-radius:6px;
-}
-
-/* SENTENCES */
-
-.sentence{
-margin:30px 0;
-}
-
-/* BUTTONS */
-
-button{
-margin-top:40px;
-padding:14px 30px;
-font-size:22px;
-border:none;
-border-radius:8px;
-background:#ff6400;
-color:white;
-cursor:pointer;
-margin-right:20px;
-}
-
-/* DISCUSSION */
-
-.hidden{
-display:none;
-}
-
-.followup{
-margin-left:30px;
-margin-top:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container" id="activity">
-
-<div class="instruction">
-Decide who answers each question. Click and drag.
-</div>
-
-<div class="options">
-<div class="drag student" draggable="true" id="student">Student</div>
-<div class="drag teacher" draggable="true" id="teacher">Teacher</div>
-</div>
-
-<div id="questions"></div>
-
-<button onclick="startDiscussion()">Discuss</button>
-<button onclick="location.reload()">Reset</button>
-
-</div>
-
-
-<div class="container hidden" id="discussion">
-
-<h2 id="roleTitle"></h2>
-
-<div id="discussionText"></div>
-
-<button onclick="nextRole()">Next</button>
-
-</div>
-
 <script>
 
 /* ===========================
@@ -141,18 +5,14 @@ EDITAR SOMENTE AQUI
 =========================== */
 
 const activity = {
-
 questions:[
-
 {
-sentence:"Which city is more beautiful: the one you live in or another city you know? Why?
-",
+sentence:"Which city is more beautiful: the one you live in or another city you know? Why?",
 followups:[
 "What places in each city are the most beautiful?",
 "Is each one more beautiful during the day or at night?"
 ]
 },
-
 {
 sentence:"Is junk food worse for people than sugary drinks? Why?",
 followups:[
@@ -160,11 +20,8 @@ followups:[
 "What is one bad eating habit people should change?"
 ]
 }
-
 ]
-
 }
-
 
 /* ===========================
 CREATE QUESTIONS
@@ -186,7 +43,6 @@ container.appendChild(div)
 
 })
 
-
 /* ===========================
 DRAG AND DROP
 =========================== */
@@ -197,9 +53,7 @@ const drops = document.querySelectorAll(".dropzone")
 drags.forEach(d => {
 
 d.addEventListener("dragstart", e=>{
-
 e.dataTransfer.setData("text", e.target.id)
-
 })
 
 })
@@ -223,21 +77,20 @@ zone.dataset.role = id
 
 })
 
-
 /* ===========================
 DISCUSSION SYSTEM
 =========================== */
 
-let roles = {}
-let phase = "student"
+let assignments = []
+let current = 0
 
 function startDiscussion(){
 
-roles = {}
+assignments = []
 
 for(let zone of drops){
 
-const q = zone.dataset.question
+const qIndex = zone.dataset.question
 const role = zone.dataset.role
 
 if(!role){
@@ -247,7 +100,10 @@ return
 
 }
 
-roles[role] = q
+assignments.push({
+role: role,
+question: qIndex
+})
 
 }
 
@@ -260,22 +116,19 @@ showRole()
 
 function showRole(){
 
-const qIndex = roles[phase]
-
 const roleTitle = document.getElementById("roleTitle")
 const text = document.getElementById("discussionText")
 
-const q = activity.questions[qIndex]
+const item = assignments[current]
+const q = activity.questions[item.question]
 
 roleTitle.innerText =
-phase.charAt(0).toUpperCase()+phase.slice(1)+" talks"
+item.role.charAt(0).toUpperCase()+item.role.slice(1)+" talks"
 
 let html = `<p>${q.sentence}</p>`
 
 q.followups.forEach(f=>{
-
 html += `<div class="followup">• ${f}</div>`
-
 })
 
 text.innerHTML = html
@@ -284,9 +137,10 @@ text.innerHTML = html
 
 function nextRole(){
 
-if(phase === "student"){
+current++
 
-phase = "teacher"
+if(current < assignments.length){
+
 showRole()
 
 }else{
@@ -298,8 +152,3 @@ location.reload()
 }
 
 </script>
-
-<script src="../script.js"></script>
-
-</body>
-</html>
